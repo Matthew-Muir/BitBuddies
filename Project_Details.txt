@@ -1,0 +1,27 @@
+Team Bit Buddies project is a Blackjack game that the user plays in the console window. A user can expect to enter commands and make decisions to increase their likelihood
+winning. Here is a brief walkthrough of what a user can expect when playing our game.
+
+How the Game Will Play
+
+Player Starts game with $50
+Player must place bet between $1 and their total funds
+Player is dealt two cards face up
+Dealer is dealt two cards 1 face up 1 face down
+
+If player has blackjack they win 100% return on and game ends.
+else Player has 2 choices (hit, stay)
+
+Player can "hit" as long as their card total is under 21.
+After receiving a hit/hits and their card total is under 21 a play may choose to "stay"
+
+When a player "stays" the dealer takes their turn.
+Dealer reveals their face down card
+Dealer decides to hit or stay based on opponents card total
+
+If dealer "busts" the play wins 100% return on bet and game ends
+else if dealer ties players score the players bet is returned and game ends
+else if dealers card total is higher than the players then player loses their bet and game ends
+else the players card total is higher and receives 100% return on bet and game ends
+
+If player has funds. They are asked to play again or exit.
+else the player sees a message theyre broke and program exits.
