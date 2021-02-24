@@ -1,0 +1,70 @@
+User Story Syntax
+
+“As a <user role>, I <want/need/can/etc> <goal> so that <reason>.”
+
+
+Role Player
+
+As a player, I want to receive $50 when the program first executes.
+As a player, I want to place a bet between 1$ and my total funds. (A.C. bet must be whole dollar increments. Minimun $1 Max total fund amount)
+As a player, I need to receive two face up cards at the start of the game. (A.C. cards must be visible throughout game.)
+As a player, I can "hit" and receive a card so that my card total value increases. (A.C player can only 'hit' while total card value less than 21)
+As a player, I want to decide whether an ace card is worth 1 or 10 value.
+As a player, I can "stay" so that I can preserve my current card total value. (A.C. can only 'stay' if total card value less than or equal to 21)
+As a player, I want my winnings/loses added/taken from my funds. (A.C. player can see their funds at all time)
+
+
+Role Dealer
+
+As a dealer, I need to receive 2 cards at the start of the game. (A.C. one card face down the other face up)
+As a dealer, I want my cards face up when my turn starts.
+As a dealer, I can 'hit' to receive a card so that my total card value increases. (A.C. only 'hits' while total card value less than 21)
+As a dealer, I need to "hit" until my total card value is greater or equal to player roles total card value. (A.C. dealer will 'hit' until they win, draw, or else dealer will 'bust' trying)
+As a dealer, I need "stay" when my total card value is greater or equal to player roles total card value. (A.C. total card value less than or equal to 21 in order to 'stay')
+
+
+Role GameMaster
+
+As a gm, I need to take the player roles bet so that they can start a new game. (A.C. only take whole dollar amounts, minimum bet $1, max bet total player funds)
+As a gm, I need to deduct the player roles bet from their funds.
+As a gm, I need to deal unique cards during a game. (A.C. all dealt cards are always visible. Except dealers 1 face down card at start of game)
+As a gm, I need to deal the player and dealer 2 cards each at the start of the game.
+As a gm, I need the player role to win when they have blackjack at the start of the game.
+As a gm, I need the player role to lose if the dealer role has blackjack and the player role doesn't. (A.C. Not checked until after player role ends their turn)
+As a gm, I need the player or dealer role to lose if their total card value exceeds 21.
+As a gm, I need the player role to 'stay' before the dealer role can play.
+As a gm, I need to offer the player and dealer role the option to "stay" so that they can preserve their total card value.
+As a gm, I need to offer the player and dealer role the option to "hit" so that they can increase their total card value.
+As a gm, I need to compare player and dealer roles total card value so that I know which has the highest total card value.
+As a gm, I need the player role to win if their total card value is greater than the dealer roles.
+As a gm, I want the player and dealer role to draw if they have equal told card value.
+As a gm, I want in the case of a draw to return the player roles bet to their funds.
+As a gm, I want in the case of a player role winning to add 2x the player roles bet amount to their funds.
+As a gm, I need to collect the player and dealer roles cards so I can shuffle the deck when the game ends.
+As a gm, I want to at the end of the game ask if the player role wants to play again. (A.C. Player must have at least $1 in their funds)
+
+
+How the Game should play
+
+Player Starts game with $50
+Player must place bet between $1 and their total funds
+Player is dealt two cards face up
+Dealer is dealt two cards 1 face up 1 face down
+
+If player has blackjack they win 100% return on and game ends.
+else Player has 2 choices (hit, stay)
+
+Player can "hit" as long as their card total is under 21.
+After receiving a hit/hits and their card total is under 21 a play may choose to "stay"
+
+When a player "stays" the dealer takes their turn.
+Dealer reveals their face down card
+Dealer decides to hit or stay based on opponents card total
+
+If dealer "busts" the play wins 100% return on bet and game ends
+else if dealer ties players score the players bet is returned and game ends
+else if dealers card total is higher than the players then player loses their bet and game ends
+else the players card total is higher and receives 100% return on bet and game ends
+
+If player has funds. They are asked to play again or exit.
+else the player sees a message theyre broke and program exits.
