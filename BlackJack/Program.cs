@@ -19,10 +19,21 @@ namespace BlackJack
             //Allows console to display unicode characters
             Console.OutputEncoding = System.Text.Encoding.Unicode;
 
-            DeckOfCards temp = new DeckOfCards();
-         
-            temp.PrintDeck();
+            //create player and give them $50
+            var player = new Player(50);
+            var playersBet = 0;
 
+            //get and check user bet
+            do
+            {
+                Console.Clear();
+                Console.WriteLine($"Please enter a bet (must be greater than 0, whole $ increments , and no more than {player.Funds}");
+                playersBet = Convert.ToInt32(Console.ReadLine());
+            } while (!GameMaster.CheckPlayersBet(player,playersBet));
+
+            // deduct bet from player funds
+            player.Funds -= playersBet;
+            
 
 
         }

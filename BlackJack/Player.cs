@@ -6,20 +6,16 @@ namespace BlackJack
 {
     class Player
     {
-        int funds = 0;
-        List<Card> drawnCards = new List<Card>();
-        int cardsTotalVal = 0;
-        bool gotBlackJack = false;
+        public int Funds = 0;
+        public List<Card> DrawnCards = new List<Card>();
+        public int CardsTotalVal = 0;
+        public bool GotBlackJack = false;
 
-        // Class properties
-        public int Funds => funds;
-        public List<Card> DrawnCards => drawnCards;
-        public int CardsTotalVal => cardsTotalVal;
-        public bool GotBlackJack => gotBlackJack;
+        
 
         public Player(int money = 0)
         {
-            this.funds = money;
+            Funds = money;
         }
     }
 }

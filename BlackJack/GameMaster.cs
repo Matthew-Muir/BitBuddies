@@ -6,8 +6,18 @@ namespace BlackJack
 {
     class GameMaster
     {
-        Player user;
-        Player dealer;
+
+        public static bool CheckPlayersBet(Player player, int bet)
+        {
+            if (bet <= player.Funds && bet > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } 
 
     }
 }
