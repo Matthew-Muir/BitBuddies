@@ -27,8 +27,17 @@ namespace BlackJack
             do
             {
                 Console.Clear();
-                Console.WriteLine($"Please enter a bet (must be greater than 0, whole $ increments , and no more than {player.Funds}");
-                playersBet = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine($"Enter a bet (must be greater than 0, whole $ increments, and no more than {player.Funds}");
+
+                try
+                {
+                    playersBet = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    
+                }
+
             } while (!GameMaster.CheckPlayersBet(player,playersBet));
 
             // deduct bet from player funds
