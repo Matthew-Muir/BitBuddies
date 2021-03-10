@@ -173,7 +173,7 @@ namespace BlackJack
             shuffledDeck.RemoveAt(1);
 
             // Handle aces
-            if (newCard.IsAce == true && player.bot == false)
+            if (newCard.IsAce == true)
             {
                 GameMaster.HandleAces(newCard, player);
             }
@@ -195,6 +195,7 @@ namespace BlackJack
             }
             return blackjack;
         }
+
         public static void GameWin(Player player, Player player2, int bet)
         {
             // Displays if player wins.

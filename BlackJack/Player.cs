@@ -9,7 +9,6 @@ namespace BlackJack
         public int CardsTotalVal = 0;
         public bool GotBlackJack = false;
         public bool bust = false;
-        public bool bot = false;
         public int countAce = 0;
 
         public Player(int money = 0)

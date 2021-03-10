@@ -52,10 +52,6 @@ namespace BlackJack
             // Game loop
             while (playAgain == true)
             {
-                // Create bot to play against
-                Player player2 = new Player();
-                player2.bot = true;
-
                 // Shuffle deck
                 DeckOfCards cards = new DeckOfCards();
                 var rand = new Random();
