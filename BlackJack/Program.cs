@@ -98,10 +98,10 @@ namespace BlackJack
                 }
 
                 // begin against dealer
+                GameMaster.PlayerDrawsCard(player2, shuffledDeck);
+                GameMaster.PlayerDrawsCard(player2, shuffledDeck);
                 GameMaster.OutputInfo(player2.Funds, bet, player2);
                 Console.Clear();
-                GameMaster.PlayerDrawsCard(player2, shuffledDeck);
-                GameMaster.PlayerDrawsCard(player2, shuffledDeck);
 
                 // dealer has to hit if player has higher value cards
                 int val = 0;
@@ -120,31 +120,25 @@ namespace BlackJack
                 {
                     Console.WriteLine("You lose!\n");
                 }
-                else if (player2.bust == true || (val < GameMaster.CheckValue(player)))
+                else if (player.GotBlackJack == true)
                 {
-                    Console.Clear();
-                    player.Funds += bet;
-                    player.Funds += bet;
-                    Console.WriteLine("Congratulations, you win!\n\nPress any key to continue... ");
-                    Console.ReadKey();
-                    Console.Clear();
+                    GameMaster.GameWin(player, player2, bet);
                 }
-                else if (player2.bust == false && (val > GameMaster.CheckValue(player)))
+                else if (player2.bust == true && player.bust == false)
+                {
+                    GameMaster.GameWin(player, player2, bet);
+                }
+                else if (val > GameMaster.CheckValue(player))
                 {
                     Console.WriteLine("You lose!\n");
                 }
-                else if (player2.bust == false && (val < GameMaster.CheckValue(player)))
+                else 
                 {
-                    Console.Clear();
-                    player.Funds += bet;
-                    player.Funds += bet;
-                    Console.WriteLine("Congratulations, you win!\n\nPress any key to continue... ");
-                    Console.ReadKey();
-                    Console.Clear();
+                    GameMaster.GameWin(player, player2, bet);
                 }
 
                 // Cleanup and run again
-                Console.Clear();
+                // Not sure if this is working properly
                 playAgain = GameMaster.PlayAgain();
                 cards.Deck.Clear();
                 shuffledDeck.Clear();

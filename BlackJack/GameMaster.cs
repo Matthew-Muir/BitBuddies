@@ -161,5 +161,14 @@ namespace BlackJack
             }
             return blackjack;
         }
+        public static void GameWin(Player player, Player player2, int bet)
+        {
+            Console.Clear();
+            player.Funds += bet;
+            player.Funds += bet;
+            Console.WriteLine("Congratulations, you win!\n\nPress any key to continue... ");
+            Console.ReadKey();
+            Console.Clear();
+        }
     }
 }
