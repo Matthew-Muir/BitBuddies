@@ -123,11 +123,15 @@ namespace BlackJack
                 {
                     hasSelected = true;
                     playAgain = true;
-
                     player.bust = false;
                     player.countAce = 0;
                     player.CardsTotalVal = 0;
                     player.DrawnCards.Clear();
+
+                    if (player.Funds == 0)
+                    {
+                        player.Funds = 50;
+                    }
 
                 }
                 else

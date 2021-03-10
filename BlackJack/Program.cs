@@ -105,8 +105,26 @@ namespace BlackJack
                 // Cleanup and run again
                 Console.Clear();
                 GameMaster.OutputInfo(bet, player);
-                Console.WriteLine();
                 playAgain = GameMaster.PlayAgain(player);
+
+                // Choose new bet
+                do
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Current Balance: ${player.Funds}");
+                    Console.Write($"Enter a bet (must be greater than 0, whole dollar increments, and no more than ${player.Funds}\n$");
+
+                    try
+                    {
+                        bet = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
+                    }
+                } while (!GameMaster.CheckPlayersBet(player, bet));
+
+                // deduct new bet from player funds
+                player.Funds -= bet;
 
                 // Reset deck
                 shuffledDeck.Clear();
