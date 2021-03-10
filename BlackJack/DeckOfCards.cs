@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BlackJack
 {
-    class DeckOfCards
+    internal class DeckOfCards
     {
         public List<Card> Deck;
-        
-
 
         // Deck constructor
         public DeckOfCards()
         {
             Deck = new List<Card>();
-
 
             //Fill Deck with cards
             for (int value = 2; value < 15; value++)
@@ -54,8 +50,6 @@ namespace BlackJack
                     string faceD = $"Q \x2666";
                     Card diaCard = new Card(10, faceD, true);
                     Deck.Add(diaCard);
-
-
                 }
                 else if (value == 13)
                 {
@@ -93,7 +87,6 @@ namespace BlackJack
                     Card diaCard = new Card(1, faceD, false, true);
                     Deck.Add(diaCard);
                 }
-
                 else
                 {
                     string faceH = $"{value} \x2665";
@@ -119,7 +112,7 @@ namespace BlackJack
         {
             foreach (Card card in Deck)
             {
-                Console.WriteLine(card.Face);
+                Console.Write($"{card.Face}, ");
             }
         }
     }
