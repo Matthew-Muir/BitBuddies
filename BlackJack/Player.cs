@@ -16,7 +16,5 @@ namespace BlackJack
         {
             Funds = money;
         }
-
-
     }
 }

@@ -56,19 +56,19 @@ namespace BlackJack
                 Player player2 = new Player();
                 player2.bot = true;
 
-                // shuffle deck
+                // Shuffle deck
                 DeckOfCards cards = new DeckOfCards();
                 var rand = new Random();
                 var shuffledDeck = cards.Deck.OrderBy(x => rand.Next()).ToList();
 
-                // draw card
+                // Draw starting cards
                 GameMaster.PlayerDrawsCard(player, shuffledDeck);
                 GameMaster.PlayerDrawsCard(player, shuffledDeck);
 
                 Console.Clear();
 
-                // output game info
-                GameMaster.OutputInfo(player.Funds, bet, player);
+                // Output game info (also runs a call to CheckValue and CheckBust)
+                GameMaster.OutputInfo(bet, player);
 
                 // Check for blackjack
                 bool blackjack = GameMaster.CheckBlackjack(player, bet);
@@ -80,14 +80,14 @@ namespace BlackJack
                     ConsoleKeyInfo choice = Console.ReadKey();
                     if (choice.Key == ConsoleKey.D1)
                     {
-                        GameMaster.OutputInfo(player.Funds, bet, player);
                         Console.Clear();
                         GameMaster.PlayerDrawsCard(player, shuffledDeck);
                         blackjack = GameMaster.CheckBlackjack(player, bet);
-                        GameMaster.OutputInfo(player.Funds, bet, player);
-                        GameMaster.Bust(player);
+                        GameMaster.OutputInfo(bet, player);
                         if (player.bust == true)
                         {
+                            Console.Clear();
+                            GameMaster.OutputInfo(bet, player);
                             break;
                         }
                     }
@@ -95,18 +95,22 @@ namespace BlackJack
                     {
                         break;
                     }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Enter (Y) for yes, or (N) for no\n");
+                    }
                 }
 
                 // Cleanup and run again
-                // Not sure if this is working properly
+                Console.Clear();
+                GameMaster.OutputInfo(bet, player);
                 Console.WriteLine();
-                playAgain = GameMaster.PlayAgain();
-                cards.Deck.Clear();
+                playAgain = GameMaster.PlayAgain(player);
+
+                // Reset deck
                 shuffledDeck.Clear();
-                player.bust = false;
-                player.countAce = 0;
-                player.CardsTotalVal = 0;
-                player.DrawnCards.Clear();
+                shuffledDeck = cards.Deck.OrderBy(x => rand.Next()).ToList();
             }
         }
     }

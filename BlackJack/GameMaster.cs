@@ -19,10 +19,14 @@ namespace BlackJack
             }
         }
 
-        public static void OutputInfo(int balance, int bet, Player player)
+        public static void OutputInfo(int bet, Player player)
         {
             int val = CheckValue(player);
-            Console.Write($"Balance: ${balance}\nBet: ${bet}");
+            Console.Write($"Balance: ${player.Funds}\nBet: ${bet}");
+            if (val > 21)
+            {
+                GameMaster.CheckBust(player);
+            }
 
             Console.Write($"\nHand: ");
             foreach (Card card in player.DrawnCards)
@@ -63,7 +67,7 @@ namespace BlackJack
             return cardAce;
         }
 
-        public static bool Bust(Player player)
+        public static void CheckBust(Player player)
         {
             bool bust = false;
             int z = 0;
@@ -94,11 +98,10 @@ namespace BlackJack
                     }
                 }
             }
-
-            return bust;
+            player.bust = bust;
         }
 
-        public static bool PlayAgain()
+        public static bool PlayAgain(Player player)
         {
             bool playAgain = true;
             bool hasSelected = false;
@@ -107,10 +110,25 @@ namespace BlackJack
             {
                 Console.Write("Would you like to play again? (Y/N)\nYour choice: ");
                 ConsoleKeyInfo playChoice = Console.ReadKey();
+                Console.WriteLine();
                 if (playChoice.Key == ConsoleKey.N)
                 {
                     hasSelected = true;
                     playAgain = false;
+                    Console.Clear();
+                    Console.WriteLine("Goodbye!\n");
+                    System.Threading.Thread.Sleep(1000);
+                }
+                else if (playChoice.Key == ConsoleKey.Y)
+                {
+                    hasSelected = true;
+                    playAgain = true;
+
+                    player.bust = false;
+                    player.countAce = 0;
+                    player.CardsTotalVal = 0;
+                    player.DrawnCards.Clear();
+
                 }
                 else
                 {
@@ -147,7 +165,7 @@ namespace BlackJack
             // Add cards to drawn pile
             player.DrawnCards.Add(newCard);
 
-            GameMaster.Bust(player);
+            GameMaster.CheckBust(player);
         }
 
         public static bool CheckBlackjack(Player player, int bet)
