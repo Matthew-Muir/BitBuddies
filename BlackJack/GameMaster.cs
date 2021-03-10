@@ -21,6 +21,12 @@ namespace BlackJack
 
         public static void OutputInfo(int bet, Player player)
         {
+            // Display game info, also makes a call to CheckBust.
+            // Balance: xx 
+            // Bet: xx 
+            // Hand: xx
+            // Total Value: xx
+
             int val = CheckValue(player);
             Console.Write($"Balance: ${player.Funds}\nBet: ${bet}");
             if (val > 21)
@@ -38,6 +44,8 @@ namespace BlackJack
 
         public static Card HandleAces(Card cardAce, Player player)
         {
+            // Player chooses value of ace.
+            Console.Clear();
             bool makingChoice = true;
             player.countAce += 1;
             do
@@ -62,8 +70,6 @@ namespace BlackJack
                     makingChoice = true;
                 }
             } while (makingChoice == true);
-
-            Console.WriteLine();
             return cardAce;
         }
 
@@ -74,7 +80,9 @@ namespace BlackJack
             int i = CheckValue(player);
             int x = player.countAce;
 
-            // given player busts, change aces from value 11 to value 1, one at a time. Check each time the value of an ace changes, resume game if player falls bellow 21, bust if still greater than 21 after all aces changed to 1.
+            // Given player busts, change aces from value 11 to value 1, one at a time.
+            // Check each time the value of an ace changes.
+            // Resume game if player falls bellow 21, bust if still greater than 21 after all aces change to 1.
             if (i > 21)
             {
                 foreach (Card card in player.DrawnCards)
@@ -103,6 +111,9 @@ namespace BlackJack
 
         public static bool PlayAgain(Player player)
         {
+
+            // Allow player to play again or quit.
+            // Reset funds to $50 if player ran out of money.
             bool playAgain = true;
             bool hasSelected = false;
 
@@ -117,7 +128,7 @@ namespace BlackJack
                     playAgain = false;
                     Console.Clear();
                     Console.WriteLine("Goodbye!\n");
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(500);
                 }
                 else if (playChoice.Key == ConsoleKey.Y)
                 {
@@ -145,6 +156,7 @@ namespace BlackJack
 
         public static int CheckValue(Player player)
         {
+            // Check total value of players drawn cards.
             int val = 0;
             foreach (Card card in player.DrawnCards)
             {
@@ -156,11 +168,11 @@ namespace BlackJack
 
         public static void PlayerDrawsCard(Player player, List<Card> shuffledDeck)
         {
-            // 'deal' the card out of shuffled deck, remove card from shuffled deck to eliminate repeats
+            // 'Deal' card out of shuffled deck, remove card from shuffled deck to eliminate repeats
             var newCard = shuffledDeck[1];
             shuffledDeck.RemoveAt(1);
 
-            // handle ace
+            // Handle aces
             if (newCard.IsAce == true && player.bot == false)
             {
                 GameMaster.HandleAces(newCard, player);
@@ -168,12 +180,12 @@ namespace BlackJack
 
             // Add cards to drawn pile
             player.DrawnCards.Add(newCard);
-
             GameMaster.CheckBust(player);
         }
 
         public static bool CheckBlackjack(Player player, int bet)
         {
+            // Check if player has blackjack.
             bool blackjack = false;
             int val = CheckValue(player);
             if (val == 21)
@@ -185,12 +197,23 @@ namespace BlackJack
         }
         public static void GameWin(Player player, Player player2, int bet)
         {
+            // Displays if player wins.
             Console.Clear();
             player.Funds += bet;
             player.Funds += bet;
-            Console.WriteLine("Congratulations, you win!\n\nPress any key to continue... ");
-            Console.ReadKey();
-            Console.Clear();
+
+            if (player.GotBlackJack == true)
+            {
+                Console.WriteLine("Blackjack!\nCongratulations, you win!\n\nPress any key to continue... ");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Congratulations, you win!\n\nPress any key to continue... ");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
     }
 }

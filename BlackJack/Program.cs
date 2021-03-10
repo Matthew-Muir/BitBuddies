@@ -27,7 +27,7 @@ namespace BlackJack
             do
             {
                 Console.Clear();
-                Console.Write($"Enter a bet (must be greater than 0, whole dollar increments, and no more than ${player.Funds}\n$");
+                Console.Write($"Enter a bet (must be greater than 0, whole dollar increments, and no more than ${player.Funds})\n$");
 
                 try
                 {
@@ -64,7 +64,6 @@ namespace BlackJack
                 // Draw starting cards
                 GameMaster.PlayerDrawsCard(player, shuffledDeck);
                 GameMaster.PlayerDrawsCard(player, shuffledDeck);
-
                 Console.Clear();
 
                 // Output game info (also runs a call to CheckValue and CheckBust)
@@ -108,23 +107,26 @@ namespace BlackJack
                 playAgain = GameMaster.PlayAgain(player);
 
                 // Choose new bet
-                do
+                if (playAgain == true)
                 {
-                    Console.Clear();
-                    Console.WriteLine($"Current Balance: ${player.Funds}");
-                    Console.Write($"Enter a bet (must be greater than 0, whole dollar increments, and no more than ${player.Funds}\n$");
-
-                    try
+                    do
                     {
-                        bet = Convert.ToInt32(Console.ReadLine());
-                    }
-                    catch (Exception)
-                    {
-                    }
-                } while (!GameMaster.CheckPlayersBet(player, bet));
+                        Console.Clear();
+                        Console.WriteLine($"Current Balance: ${player.Funds}");
+                        Console.Write($"Enter a bet (must be greater than 0, whole dollar increments, and no more than ${player.Funds})\n$");
 
-                // deduct new bet from player funds
-                player.Funds -= bet;
+                        try
+                        {
+                            bet = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    } while (!GameMaster.CheckPlayersBet(player, bet));
+
+                    // deduct new bet from player funds
+                    player.Funds -= bet;
+                }
 
                 // Reset deck
                 shuffledDeck.Clear();
