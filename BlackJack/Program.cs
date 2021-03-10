@@ -97,48 +97,9 @@ namespace BlackJack
                     }
                 }
 
-                // begin against dealer
-                GameMaster.PlayerDrawsCard(player2, shuffledDeck);
-                GameMaster.PlayerDrawsCard(player2, shuffledDeck);
-                GameMaster.OutputInfo(player2.Funds, bet, player2);
-                Console.Clear();
-
-                // dealer has to hit if player has higher value cards
-                int val = 0;
-                while (GameMaster.CheckValue(player2) < GameMaster.CheckValue(player))
-                {
-                    GameMaster.PlayerDrawsCard(player2, shuffledDeck);
-                    foreach (Card card in player2.DrawnCards)
-                    {
-                        val += card.Value;
-                    }
-                    Console.WriteLine("Total value of dealers hand: " + val);
-                }
-
-                // deciding who wins
-                if (player.bust == true)
-                {
-                    Console.WriteLine("You lose!\n");
-                }
-                else if (player.GotBlackJack == true)
-                {
-                    GameMaster.GameWin(player, player2, bet);
-                }
-                else if (player2.bust == true && player.bust == false)
-                {
-                    GameMaster.GameWin(player, player2, bet);
-                }
-                else if (val > GameMaster.CheckValue(player))
-                {
-                    Console.WriteLine("You lose!\n");
-                }
-                else 
-                {
-                    GameMaster.GameWin(player, player2, bet);
-                }
-
                 // Cleanup and run again
                 // Not sure if this is working properly
+                Console.WriteLine();
                 playAgain = GameMaster.PlayAgain();
                 cards.Deck.Clear();
                 shuffledDeck.Clear();
@@ -146,10 +107,6 @@ namespace BlackJack
                 player.countAce = 0;
                 player.CardsTotalVal = 0;
                 player.DrawnCards.Clear();
-                player2.bust = false;
-                player2.countAce = 0;
-                player2.CardsTotalVal = 0;
-                player2.DrawnCards.Clear();
             }
         }
     }
