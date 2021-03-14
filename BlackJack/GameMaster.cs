@@ -127,7 +127,7 @@ namespace BlackJack
                     hasSelected = true;
                     playAgain = false;
                     Console.Clear();
-                    Console.WriteLine("Goodbye!\n");
+                    Console.WriteLine("Thanks for playing!\n");
                     System.Threading.Thread.Sleep(500);
                 }
                 else if (playChoice.Key == ConsoleKey.Y)
@@ -183,38 +183,20 @@ namespace BlackJack
             GameMaster.CheckBust(player);
         }
 
-        public static bool CheckBlackjack(Player player, int bet)
+        public static bool CheckBlackjack(Player player)
         {
-            // Check if player has blackjack.
-            bool blackjack = false;
-            int val = CheckValue(player);
-            if (val == 21)
+            var card1 = player.DrawnCards[0];
+            var card2 = player.DrawnCards[1];
+
+            if ((card1.IsAce && card2.Value == 10) || (card1.Value == 10 && card2.IsAce))
             {
-                blackjack = true;
-                player.GotBlackJack = true;
+                return true;
             }
-            return blackjack;
+
+            return false;
         }
 
-        public static void GameWin(Player player, Player player2, int bet)
-        {
-            // Displays if player wins.
-            Console.Clear();
-            player.Funds += bet;
-            player.Funds += bet;
-
-            if (player.GotBlackJack == true)
-            {
-                Console.WriteLine("Blackjack!\nCongratulations, you win!\n\nPress any key to continue... ");
-                Console.ReadKey();
-                Console.Clear();
-            }
-            else
-            {
-                Console.WriteLine("Congratulations, you win!\n\nPress any key to continue... ");
-                Console.ReadKey();
-                Console.Clear();
-            }
-        }
+        
+        
     }
 }
