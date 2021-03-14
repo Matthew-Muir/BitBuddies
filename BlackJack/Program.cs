@@ -27,7 +27,7 @@ namespace BlackJack
             do
             {
                 Console.Clear();
-                Console.Write($"Enter a whole dolar bet between and your total funds ${player.Funds})\n$");
+                Console.Write($"Enter a whole dollar bet between $1 and your total funds (${player.Funds})\n$");
 
                 try
                 {
@@ -67,7 +67,6 @@ namespace BlackJack
 
                 // Check for blackjack
                 bool blackjack = GameMaster.CheckBlackjack(player);
-                
 
                 // Hit, Stay
                 while (!player.bust && !blackjack)
@@ -83,15 +82,15 @@ namespace BlackJack
 
                         if (player.bust == true)
                         {
-                            
                             Console.Clear();
-                            GameMaster.OutputInfo(bet, player);
+                            GameMaster.CheckValue(player);
                             break;
                         }
                     }
                     else if (choice.Key == ConsoleKey.D2)
                     {
-                        player.Funds += 2 * bet;
+                        blackjack = GameMaster.CheckBlackjack(player);
+                        player.Funds += bet;
                         break;
                     }
                     else
@@ -103,18 +102,20 @@ namespace BlackJack
 
                 // Cleanup and run again
                 Console.Clear();
-                GameMaster.OutputInfo(bet, player);
                 if (player.bust)
                 {
+                    GameMaster.OutputInfo(bet, player);
                     Console.WriteLine($"You busted and lost ${bet} \n");
                 }
                 else if (blackjack)
                 {
-                    Console.WriteLine($"BlackJack! You win double your bet of ${bet} \n");
                     player.Funds += 2 * bet;
+                    GameMaster.OutputInfo(bet, player);
+                    Console.WriteLine($"BlackJack! You win double your bet of ${bet} \n");
                 }
                 else
                 {
+                    GameMaster.OutputInfo(bet, player);
                     Console.WriteLine("You didn't bust so you won for now... \n");
                 }
                 playAgain = GameMaster.PlayAgain(player);
@@ -126,7 +127,7 @@ namespace BlackJack
                     {
                         Console.Clear();
                         Console.WriteLine($"Current Balance: ${player.Funds}");
-                        Console.Write($"Enter a whole dolar bet between and your total funds ${player.Funds})\n$");
+                        Console.Write($"Enter a whole dollar bet between $1 and your total funds (${player.Funds})\n$");
 
                         try
                         {

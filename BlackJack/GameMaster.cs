@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 
 namespace BlackJack
 {
-    class GameMaster
+    internal class GameMaster
     {
         public static bool CheckPlayersBet(Player player, int bet)
         {
@@ -22,8 +20,8 @@ namespace BlackJack
         public static void OutputInfo(int bet, Player player)
         {
             // Display game info, also makes a call to CheckBust.
-            // Balance: xx 
-            // Bet: xx 
+            // Balance: xx
+            // Bet: xx
             // Hand: xx
             // Total Value: xx
 
@@ -75,43 +73,41 @@ namespace BlackJack
 
         public static void CheckBust(Player player)
         {
-            bool bust = false;
-            int z = 0;
+            bool didPlayerBust = false;
+            int countChangedAces = 0;
             int i = CheckValue(player);
-            int x = player.countAce;
 
             // Given player busts, change aces from value 11 to value 1, one at a time.
             // Check each time the value of an ace changes.
             // Resume game if player falls bellow 21, bust if still greater than 21 after all aces change to 1.
-            if (i > 21)
+            if (i >= 21)
             {
                 foreach (Card card in player.DrawnCards)
                 {
                     if (card.IsAce == true)
                     {
                         card.Value = 1;
-                        if (x == z)
+                        if (player.countAce == countChangedAces)
                         {
-                            bust = true;
+                            didPlayerBust = true;
                             break;
                         }
-                        z += 1;
+                        countChangedAces += 1;
                     }
-                    bust = true;
+                    didPlayerBust = true;
                     int y = CheckValue(player);
-                    if (y < 21)
+                    if (y <= 21)
                     {
-                        bust = false;
+                        didPlayerBust = false;
                         break;
                     }
                 }
             }
-            player.bust = bust;
+            player.bust = didPlayerBust;
         }
 
         public static bool PlayAgain(Player player)
         {
-
             // Allow player to play again or quit.
             // Reset funds to $50 if player ran out of money.
             bool playAgain = true;
@@ -143,7 +139,6 @@ namespace BlackJack
                     {
                         player.Funds = 50;
                     }
-
                 }
                 else
                 {
@@ -162,7 +157,7 @@ namespace BlackJack
             {
                 val += card.Value;
             }
-
+            player.CardsTotalVal = val;
             return val;
         }
 
@@ -185,18 +180,14 @@ namespace BlackJack
 
         public static bool CheckBlackjack(Player player)
         {
-            var card1 = player.DrawnCards[0];
-            var card2 = player.DrawnCards[1];
-
-            if ((card1.IsAce && card2.Value == 10) || (card1.Value == 10 && card2.IsAce))
+            if (GameMaster.CheckValue(player) == 21)
             {
                 return true;
             }
-
-            return false;
+            else
+            {
+                return false;
+            }
         }
-
-        
-        
     }
 }
